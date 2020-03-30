@@ -327,7 +327,7 @@ void replacejoker(int &jokerpoint,int cards[][3],int numberofcards){
       jokerpoint+=10;
       cout << "Where do you want to replace white joker? (leftmost=1)";
       cin >> newpos;
-      for (int j=0; j<newpos; j++){
+      for (int j=i+1; j<newpos; j++){
         if (cards[j][1]==12 && cards[j][0]==1){
           while(j<=newpos-1){
           cout << "Invalid moving. Please choose other position."<<endl;
@@ -336,9 +336,9 @@ void replacejoker(int &jokerpoint,int cards[][3],int numberofcards){
           }
         }
       }
-      for (int j=numberofcards-1; j>=newpos-1; j--){
-        cards[j][1]=cards[j-1][1];
-        cards[j][0]=cards[j-1][0];
+      for (int k=numberofcards-1; k>=newpos-1; k--){
+        cards[k][1]=cards[k-1][1];
+        cards[k][0]=cards[k-1][0];
       }
       cards[newpos-1][1]=12;
       cards[newpos-1][0]=0;
@@ -349,7 +349,7 @@ void replacejoker(int &jokerpoint,int cards[][3],int numberofcards){
       jokerpoint+=1;
       cout << "Where do you want to replace black joker? (leftmost=1)";
       cin >> newpos;
-      for (int j=0; j<newpos; j++){
+      for (int j=i+1; j<newpos; j++){
         if (cards[j][1]==12 && cards[j][0]==0){
           while(j>newpos-1){
           cout << "Invalid moving. Please choose other position."<<endl;
@@ -377,8 +377,8 @@ void sorting(int cards[][3], int numberofcards, int &jokerpoint){
   col=cards[numberofcards-1][0];
   for (int i=0; i<numberofcards-1; i++){
     if (num < cards[i][1]){
-      if((cards[i][1]==12)&&(i<numberofcards-1)){
-        if((cards[i+1][1] > num)&&(i<numberofcards-1)){
+      if(cards[i][1]==12){
+        if((cards[i+1][1] > num)&& (i<numberofcards-2)){
           cout << "The last tile is a new tile."<< endl;
           showmycards(cards,numberofcards);
           cout << "Do you want to put a new tile before or after the joker tile? (B/A)";
