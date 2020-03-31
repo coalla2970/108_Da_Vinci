@@ -256,7 +256,7 @@ void sorting(int cards[][3],int numberofcards,int joker[]){
         }
       }
       for (int l=0; l<2; l++){
-        for (int i=posanswer-1; i<=last ; i++){
+        for (int i=posanswer-1; i<last ; i++){
           if ((num > cards[i][1]) && cards[i][1]!=12){
             cout << "Error1 Invalid move. Please consider the tile order! Position? (leftmost=1):";
             while (!(cin>>posanswer)){
@@ -269,26 +269,7 @@ void sorting(int cards[][3],int numberofcards,int joker[]){
             continue;
           }
           else if(cards[i][1] == num){
-            if(cards[i][0]==1 && col==0){
-              break;
-            }
-            else if ((i==last && cards[i][0]==0 && col==0)||(i==last && cards[i][0]==1 && col==1)){
-              if (cards[i-1][1]>num){
-                break;
-              }
-              else{
-                cout << "Error 2 Invalid move. Please consider the tile order! Position? (leftmost=1):";
-                while (!(cin>>posanswer)){
-                  cout << "Please input a vaild number.\nPosition?";
-                  cin.clear();
-                  while (cin.get() != '\n'){
-                  }
-                }
-                i=posanswer-2;
-                continue;
-              }
-            }
-            else{
+            if(cards[i][0]==0 && col==1){
               cout << "Error 3 Invalid move. Please consider the tile order! Position? (leftmost=1):";
               while (!(cin>>posanswer)){
                 cout << "Please input a vaild number.\nPosition?";
@@ -299,8 +280,10 @@ void sorting(int cards[][3],int numberofcards,int joker[]){
               i=posanswer-2;
               continue;
             }
+            else{
+              break;
+            }
           }
-          else continue;
         }
         if(posanswer==1){
           break;
@@ -576,3 +559,4 @@ int main(){
       clrscrn();
     }
   }
+
