@@ -68,15 +68,12 @@ void checkpassword(string player,int password){
   while (!(cin>>inpass)){
     cout << "Please input a vaild number.\nPassword?";
     cin.clear();
-    while (cin.get() != '\n'){
-    }
   }
   while(inpass!=password){
     cout << "Wrong password, try again\nEnter the password:";
     cin >> inpass;
   }
 }
-
 void primarysort(int cards[][3], int numberofcards){
   int bigger,switchcolor;
   for (int i=0; i<numberofcards; i++){
@@ -98,21 +95,103 @@ void primarysort(int cards[][3], int numberofcards){
     }
   }
 }
-
 void showmycards(int cards[][3], int numberofcards){
-  for (int n=0; n<2; n++){
+  string choice;
+  int confirmation = 1;
+  while(confirmation == 1){
+    for (int n=0; n<2; n++){
+      for (int i=0; i<numberofcards; i++){
+        if (cards[i][0] == 0){
+          cout << WHITE WHITE WHITE WHITE WHITE WHITE<< "\t";
+        }
+        else {
+          cout << BLACK BLACK BLACK BLACK BLACK BLACK<< "\t";
+        }
+      }
+      cout << endl;
+    }
     for (int i=0; i<numberofcards; i++){
       if (cards[i][0] == 0){
-        cout << WHITE WHITE WHITE WHITE WHITE WHITE<< "\t";
+        if (cards[i][1] >= 1 && cards[i][1] <= 9){
+          cout << WHITE WHITE << 0 << cards[i][1] << WHITE WHITE << "\t";
+        }
+        else if (cards[i][1] == 10 || cards[i][1] == 11){
+          cout << WHITE WHITE << cards[i][1] << WHITE WHITE << "\t";
+        }
+        else {
+          cout << WHITE WHITE << "**" << WHITE WHITE << "\t";
+        }
       }
       else {
-        cout << BLACK BLACK BLACK BLACK BLACK BLACK<< "\t";
+        if (cards[i][1] >= 1 && cards[i][1] <= 9){
+          cout << BLACK BLACK << 0 << cards[i][1] << BLACK BLACK << "\t";
+        }
+        else if (cards[i][1] == 10 || cards[i][1] == 11){
+          cout << BLACK BLACK << cards[i][1] << BLACK BLACK  << "\t";
+        }
+        else {
+          cout << BLACK BLACK << "**" << BLACK BLACK << "\t";
+        }
       }
     }
     cout << endl;
+    for (int n=0; n<2; n++){
+      for (int i=0; i<numberofcards; i++){
+        if (cards[i][0] == 0){
+          cout << WHITE WHITE WHITE WHITE WHITE WHITE << "\t";
+        }
+        else {
+          cout << BLACK BLACK BLACK BLACK BLACK BLACK << "\t";
+        }
+      }
+      cout << endl;
+    }
+    for (int i=0; i<numberofcards; i++){
+      if (cards[i][2] == 1){
+        cout << "Shown!" << "\t";
+      }
+      else {
+        cout << "     " << "\t";
+      }
+    }
+    cout << endl;
+    while(true){
+      cout << "confirm that you have seen the cards (Y/N): ";
+      cin >> choice;
+      if (choice == "Y"){
+        confirmation = 0;
+        break;
+      }
+      else if (choice == "N"){
+        break;
+      }
+      else
+        cout << "invalid input!" << endl;
+    }
   }
-  for (int i=0; i<numberofcards; i++){
-    if (cards[i][0] == 0){
+}
+void showcardsback(int cards[][3], int numberofcards){
+  for (int n=0; n<2; n++){
+    for (int i=0; i<=numberofcards-1; i++){
+      if (cards[i][0] == 0){
+        cout << WHITE WHITE WHITE WHITE WHITE WHITE<< "\t";
+      }
+      else if (cards[i][0] == 1){
+        cout << BLACK BLACK BLACK BLACK BLACK BLACK<< "\t";
+      }
+      else
+        pass();
+    }
+    cout << endl;
+  }
+  for (int i=0; i<=numberofcards-1; i++){
+    if (cards[i][0] == 0 && cards[i][2] == 0){
+      cout << WHITE WHITE WHITE WHITE WHITE WHITE<< "\t";
+    }
+    else if (cards[i][0] == 1 && cards[i][2] == 0){
+      cout << BLACK BLACK BLACK BLACK BLACK BLACK<< "\t";
+    }
+    else if (cards[i][0] == 0 && cards[i][2] == 1){
       if (cards[i][1] >= 1 && cards[i][1] <= 9){
         cout << WHITE WHITE << 0 << cards[i][1] << WHITE WHITE << "\t";
       }
@@ -123,7 +202,7 @@ void showmycards(int cards[][3], int numberofcards){
         cout << WHITE WHITE << "**" << WHITE WHITE << "\t";
       }
     }
-    else {
+    else if (cards[i][0] == 1 && cards[i][2] == 1){
       if (cards[i][1] >= 1 && cards[i][1] <= 9){
         cout << BLACK BLACK << 0 << cards[i][1] << BLACK BLACK << "\t";
       }
@@ -134,32 +213,12 @@ void showmycards(int cards[][3], int numberofcards){
         cout << BLACK BLACK << "**" << BLACK BLACK << "\t";
       }
     }
+    else
+      pass();
   }
   cout << endl;
   for (int n=0; n<2; n++){
-    for (int i=0; i<numberofcards; i++){
-      if (cards[i][0] == 0){
-        cout << WHITE WHITE WHITE WHITE WHITE WHITE << "\t";
-      }
-      else {
-        cout << BLACK BLACK BLACK BLACK BLACK BLACK << "\t";
-      }
-    }
-    cout << endl;
-  }
-  for (int i=0; i<numberofcards; i++){
-    if (cards[i][2] == 1){
-      cout << "Shown!" << "\t";
-    }
-    else {
-      cout << "     " << "\t";
-    }
-  }
-  cout << endl;
-}
-void showcardsback(int cards[][3], int numberofcards){
-  for (int n=0; n<5; n++){
-    for (int i=numberofcards-1; i>=0; i--){
+    for (int i=0; i<=numberofcards-1; i++){
       if (cards[i][0] == 0){
         cout << WHITE WHITE WHITE WHITE WHITE WHITE<< "\t";
       }
@@ -192,7 +251,6 @@ void subsort(int last, int newpos, int cards[][3],int n,int num, int col){
   }
   cards[newpos-1][1]=num;
   cards[newpos-1][0]=col;
-  cout << "Sorted!" <<endl;
 }
 void sorting(int cards[][3],int numberofcards,int joker[]){
   int newpos,n=0;
@@ -330,14 +388,11 @@ void sorting(int cards[][3],int numberofcards,int joker[]){
       }
     cards[posanswer][1]=num;
     cards[posanswer][0]=col;
-    cout << "Sorted!"<<endl;
   }
 }
 void newcardinfo(int newcard[],int cards[][3],int numberofcards){
   newcard[0]=cards[numberofcards-1][0];
   newcard[1]=cards[numberofcards-1][1];
-  cout << "New card's number is " << newcard[1] << endl;
-  cout << "New card's color is " << newcard[0] << endl;
 }
 int cardindeck(int deck[][3], int temp[3]){
   int check = -1;
@@ -438,9 +493,9 @@ void primarydeal(int deck[][3], int cards1[][3], int cards2[][3],string player1,
     if (i==1){
       numberofcards=0;
     }
+    clrscrn();
   }
 }
-
 void deal(int deck[][3], int cards[][3], int &numberofcards){
   srand(time(NULL));
   int numcard = numberofcards + 1;
@@ -496,12 +551,62 @@ void deal(int deck[][3], int cards[][3], int &numberofcards){
     }
   }
 }
-
+void guessing(int opponentcard[][3], int mycard[][3], int newcard[], int numberofcards, int opponentcards, string player, int password){
+  while(true){
+    char choice;
+    int position=1000;
+    int number=1000;
+    cout << "here is the back of your opponent's cards: " << endl;
+    showcardsback(opponentcard, opponentcards);
+    cout << "which card do you want to pick?(leftmost - 1): ";
+    cin >> position;
+    cout << "please guess the number of the chosen card: ";
+    cin >> number;
+    if (number == opponentcard[position-1][1]){
+      cout << "you have guessed it correctly!" << endl;
+      opponentcard[position-1][2] = 1;
+      cout << "you have guessed it correctly. do you want to guess more? (Y/N): ";
+      cin >> choice;
+      if (choice == 'Y')
+        continue;
+      else
+        break;
+    }
+    else{
+      cout << "oops, you have guessed it wrong!" << endl;
+      for (int i=0; i<numberofcards; i++){
+        if (mycard[i][0] == newcard[0] && mycard[i][1] == newcard[1]){
+          mycard[i][2] = 1;
+        }
+        else
+          pass();
+      }
+      break;
+    }
+  }
+  cout << "please confirm your moves by putting your password: " << endl;
+  checkpassword(player,password);
+}
+bool didsomebodylose(int playercard[][3], int numberofcards){
+  int decision = 0;
+  for (int i=0; i<numberofcards; i++){
+    if (playercard[i][2] == 0){
+      decision = 1;
+      break;
+    }
+    else
+      continue;
+  }
+  if (decision == 0)
+    return false;
+  else
+    return true;
+}
 int main(){
   char option1;
   string player1,player2;
-  int password[3],joker1[2],joker2[2],newcard1[2],newcard2[2];
-  int numbercards=0, cards1[24][3],cards2[24][3];
+  int password[3],joker1[2],joker2[2],newcardplayer1[3],newcardplayer2[3], turn=1;
+  int numbercards=0,numbercards1=4,numbercards2=4,cards1[24][3],cards2[24][3];
   cout << "Please adjust the screen until you see only one line:" << endl;
   for (int i=0; i<190; i++){
     cout << "-";
@@ -512,7 +617,6 @@ int main(){
   if (option1 == 'Y'){
     clrscrn();
   }
-  char option;
   int deck[24][3];
   for (int i=0; i<12; i++){
     deck[i][0] = 0;
@@ -531,32 +635,57 @@ int main(){
   }
   welcomemsg(player1,player2,password);
   cout << "testing...(printing all possible cards)" << endl;
-  showmycards(deck,24);
   cout << "You are going to pick first 4 cards." << endl;
   primarydeal(deck,cards1,cards2,player1,player2,numbercards);
   cout << player1 << "'s initial cards" << endl;
   checkpassword(player1,password[1]);
-  primarysort(cards1,numbercards);
-  sorting(cards1,numbercards,joker1);
-  showmycards(cards1,numbercards);
+  primarysort(cards1,numbercards1);
+  sorting(cards1,numbercards1,joker1);
+  showmycards(cards1,numbercards1);
+  clrscrn();
   cout << player2 << "'s initial cards" << endl;
   checkpassword(player2,password[2]);
-  primarysort(cards2,numbercards);
-  sorting(cards2,numbercards,joker2);
-  showmycards(cards2,numbercards);
-  cout << "The remaining cards are:" << endl;
-  showcardsback(deck,24);
-  cout << "testing draw for one more card?" << endl;
-  deal(deck,cards1,numbercards);
-  newcardinfo(newcard1,cards1,numbercards);
-  cout << "drawn one more card!" << endl;
-  showmycards(cards1,numbercards);
-  sorting(cards1,numbercards,joker1);
-  showmycards(cards1,numbercards);
-  cout << "hide card?(Y/N): ";
-  cin >> option;
-  if (option == 'Y'){
+  primarysort(cards2,numbercards2);
+  sorting(cards2,numbercards2,joker2);
+  showmycards(cards2,numbercards2);
+  clrscrn();
+  while((didsomebodylose(cards1,numbercards1)||didsomebodylose(cards1,numbercards1))){
+    if (turn == 1){
+      cout << player1 << ", it's your turn!" << endl;
+      checkpassword(player1,password[1]);
+      cout << "The remaining cards are:" << endl;
+      showcardsback(deck,24);
+      cout << "Please draw one more card!" << endl;
+      deal(deck,cards1,numbercards1);
+      cout << endl;
+      newcardinfo(newcardplayer1,cards1,numbercards1);
+      sorting(cards1,numbercards1,joker1);
+      cout << endl;
+      cout << "here is your card: " << endl;
+      showmycards(cards1,numbercards1);
+      cout << endl;
+      guessing(cards2,cards1,newcardplayer1,numbercards1,numbercards2,player1,password[1]);
+      turn = 2;
+      clrscrn();
+    }
+    else{
+      cout << player2 << ", it's your turn!" << endl;
+      checkpassword(player2,password[2]);
+      cout << "The remaining cards are:" << endl;
+      showcardsback(deck,24);
+      cout << "Please draw one more card!" << endl;
+      deal(deck,cards2,numbercards2);
+      cout << endl;
+      newcardinfo(newcardplayer2,cards2,numbercards2);
+      sorting(cards2,numbercards2,joker2);
+      cout << endl;
+      cout << "here is your card: " << endl;
+      showmycards(cards2,numbercards2);
+      cout << endl;
+      guessing(cards1,cards2,newcardplayer2,numbercards2,numbercards1,player2,password[2]);
+      turn = 1;
       clrscrn();
     }
   }
-
+  cout << "game ended!" << endl;
+}
