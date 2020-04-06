@@ -233,7 +233,7 @@ for (int n=0; n<2; n++){
   cout << endl;
 }
 }
-void subsort(int last, int &newpos, int cards[][3],int n,int num, int col){
+void subsort(int last, int &newpos, int cards[][3],int n,int num, int col,int joker[]){
 showmycards(cards,last+1);
 if (n==0){
   cout << "Where do you want to put a white joker tile? (leftmost =1)" << endl;
@@ -248,16 +248,22 @@ while (!(cin>>newpos)){
   }
 }
 for (int i=last; i>newpos-1; i--){
+  if (joker[2]==i){
+    joker[2]=joker[2]+1;
+  }
+  if (joker[3]==i){
+    joker[3]=joker[3]+1;
+  }
   cards[i][1]=cards[i-1][1];
   cards[i][0]=cards[i-1][0];
 }
 cards[newpos-1][1]=num;
 cards[newpos-1][0]=col;
 }
-void naturalsort(int cards[][3], int first, int last,int &posnew){
+void naturalsort(int cards[][3], int first, int last,int &posnew,int numberofcards){
   int num,col;
-  num=cards[last][1];
-  col=cards[last][0];
+  num=cards[numberofcards-1][1];
+  col=cards[numberofcards-1][0];
   for (int i=first; i<=last; i++){
     if (cards[i][1]>num){
       posnew=i;
@@ -370,7 +376,7 @@ if (num==12){
   cout<<"Cp0"<<endl;
   if (col==0 && joker[1]==0){
     n=0;
-    subsort(last,newpos,cards,n,num,col);
+    subsort(last,newpos,cards,n,num,col,joker);
     joker[0]=1;
     joker[2]=newpos-1;
     cout << "cp1" << endl;
@@ -378,7 +384,7 @@ if (num==12){
   else if(col==1 && joker[0]==0){
     if(cards[last-1][1]!=12){
       n=1;
-      subsort(last,newpos,cards,n,num,col);
+      subsort(last,newpos,cards,n,num,col,joker);
       joker[1]=1;
       joker[3]=newpos-1;
       cout << "cp2"<<endl;
@@ -387,11 +393,11 @@ if (num==12){
     else if (cards[last-1][1]==12 && cards[last-1][0]==0){
       int whitejnum=12, whitejcol=0;
       n=0;
-      subsort(last,newpos,cards,n,whitejnum,whitejcol);
+      subsort(last,newpos,cards,n,whitejnum,whitejcol,joker);
       joker[0]=1;
       joker[2]=newpos-1;
       n=1;
-      subsort(last,newpos,cards,n,num,col);
+      subsort(last,newpos,cards,n,num,col,joker);
       joker[1]=1;
       joker[3]=newpos-1;
       cout << "cp3"<<endl;
@@ -400,20 +406,20 @@ if (num==12){
   }
   else if (col==0 && joker[1]==1){
     n=0;
-    subsort(last,newpos,cards,n,num,col);
+    subsort(last,newpos,cards,n,num,col,joker);
     joker[0]=1;
     joker[2]=newpos-1;
   }
   else if (col==1 && joker[0]==1){
     n=1;
-    subsort(last,newpos,cards,n,num,col);
+    subsort(last,newpos,cards,n,num,col,joker);
     joker[1]=1;
     joker[3]=newpos-1;
   }
 }
 else{
   if(joker[0]==0 && joker[1]==0){
-    naturalsort(cards,0,last,posnew);
+    naturalsort(cards,0,last,posnew,numberofcards);
     cout << "cp4" << endl;
   }
   else if (joker[0]==1 && joker[1]==1){
@@ -421,7 +427,7 @@ else{
     int secondj=max(joker[2],joker[3]);
     if(firstj==0){
       if (cards[secondj+1][1]<num){
-        naturalsort(cards,secondj+1,last,posnew);
+        naturalsort(cards,secondj+1,last,posnew,numberofcards);
         cout << "cp5" << endl;
       }
       else{
@@ -432,7 +438,7 @@ else{
     }
     else if (secondj==last-1){
       if (cards[firstj-1][1]>num){
-        naturalsort(cards,0,firstj-1,posnew);
+        naturalsort(cards,0,firstj-1,posnew,numberofcards);
         cout << "cp7" << endl;
       }
       else{
@@ -443,11 +449,11 @@ else{
     }
     else if (joker[2]-joker[3]==-1 || joker[2]-joker[3]==1){
       if (num<cards[firstj-1][1]){
-        naturalsort(cards,0,firstj-1,posnew);
+        naturalsort(cards,0,firstj-1,posnew,numberofcards);
         cout << "cp9" << endl;
       }
       else if(num>cards[secondj+1][1]){
-        naturalsort(cards,secondj+1,last,posnew);
+        naturalsort(cards,secondj+1,last,posnew,numberofcards);
         cout << "cp10" << endl;
       }
       else{
@@ -458,16 +464,34 @@ else{
     }
     else{
       if (num<cards[firstj-1][1]){
-        naturalsort(cards,0,firstj-1,posnew);
+        naturalsort(cards,0,firstj-1,posnew,numberofcards);
         cout << "cp12" << endl;
       }
       else if(num>cards[secondj+1][1]){
-        naturalsort(cards,secondj+1,last,posnew);
+        naturalsort(cards,secondj+1,last,posnew,numberofcards);
         cout << "cp13" << endl;
       }
-      else if(num>cards[firstj-1][1] && num<cards[secondj-1][1]){
-        naturalsort(cards,firstj+1,secondj-1,posnew);
+      else if(num>cards[firstj-1][1] && num<cards[secondj+1][1]){
+        naturalsort(cards,firstj+1,secondj-1,posnew,numberofcards);
         cout << "cp14" << endl;
+      }
+      else if(num==cards[firstj-1][1]){
+        if(cards[firstj-1][0]==0){
+          naturalsort(cards,firstj+1,secondj-1,posnew,numberofcards);
+        }
+        else{
+          moving(cards,numberofcards,posanswer);
+          posnew=posanswer-1;
+        }
+      }
+      else if(num==cards[secondj+1][1]){
+        if(cards[secondj+1][0]==1){
+          naturalsort(cards,firstj+1,secondj-1,posnew,numberofcards);
+        }
+        else{
+          moving(cards,numberofcards,posanswer);
+          posnew=posanswer-1;
+        }
       }
       else{
         moving(cards,numberofcards,posanswer);
@@ -487,8 +511,17 @@ else{
     }
     if(posj==0){
       if (cards[posj+1][1]<num){
-        naturalsort(cards,posj+1,last,posnew);
+        naturalsort(cards,posj+1,last,posnew,numberofcards);
         cout << "cp16" << endl;
+      }
+      else if(cards[posj+1][1]==num){
+        if(cards[posj+1][0]==1){
+          moving(cards,numberofcards,posanswer);
+          posnew=posanswer-1;
+        }
+        else{
+          naturalsort(cards,posj+1,last,posnew,numberofcards);
+        }
       }
       else{
         moving(cards,numberofcards,posanswer);
@@ -498,7 +531,7 @@ else{
     }
     else if (posj==last-1){
       if (cards[posj-1][1]>num){
-        naturalsort(cards,0,posj-1,posnew);
+        naturalsort(cards,0,posj-1,posnew,numberofcards);
         cout << "cp18" << endl;
       }
       else{
@@ -508,12 +541,21 @@ else{
       }
     }
     else if (num<cards[posj-1][1]){
-      naturalsort(cards,0,posj-1,posnew);
+      naturalsort(cards,0,posj-1,posnew,numberofcards);
       cout << "cp20" << endl;
     }
     else if(num>cards[posj+1][1]){
-      naturalsort(cards,posj+1,last,posnew);
+      naturalsort(cards,posj+1,last,posnew,numberofcards);
       cout << "cp21" << endl;
+    }
+    else if (num==cards[posj-1][1]){
+      if(cards[posj-1][0]==0){
+        moving(cards,numberofcards,posanswer);
+        posnew=posanswer-1;
+      }
+      else{
+        naturalsort(cards,0,posj-1,posnew,numberofcards);
+      }
     }
     else{
       moving(cards,numberofcards,posanswer);
