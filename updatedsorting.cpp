@@ -340,7 +340,7 @@ void moving(int cards[][3], int numberofcards, int &posanswer){
         continue;
       }
       else if (cards[posanswer-2][1]==num){
-        if(cards[posanswer-2][0]==1 && col==0){
+        if(cards[posanswer-2][0]==0 && col==1){
           break;
         }
         else{
@@ -382,7 +382,7 @@ if (num==12){
       joker[1]=1;
       joker[3]=newpos-1;
       cout << "cp2"<<endl;
-      cout<< joker[0] <<joker[1];
+      cout<< joker[0] <<joker[1]<<endl;;
     }
     else if (cards[last-1][1]==12 && cards[last-1][0]==0){
       int whitejnum=12, whitejcol=0;
@@ -395,8 +395,20 @@ if (num==12){
       joker[1]=1;
       joker[3]=newpos-1;
       cout << "cp3"<<endl;
-      cout<< joker[0] <<joker[1];
+      cout<< joker[0] <<joker[1]<<endl;
     }
+  }
+  else if (col==0 && joker[1]==1){
+    n=0;
+    subsort(last,newpos,cards,n,num,col);
+    joker[0]=1;
+    joker[2]=newpos-1;
+  }
+  else if (col==1 && joker[0]==1){
+    n=1;
+    subsort(last,newpos,cards,n,num,col);
+    joker[1]=1;
+    joker[3]=newpos-1;
   }
 }
 else{
@@ -465,9 +477,9 @@ else{
     }
   }
   else{
-    cout<< joker[0] <<joker[1];
     int posj;
-    if (joker[2]==0){
+    cout<< joker[0] <<joker[1]<<posj<<endl;
+    if (joker[0]==0){
       posj=joker[3];
     }
     else{
@@ -510,9 +522,15 @@ else{
     }
   }
   for (int k=last; k>posnew-1; k--){
+    if (joker[2]==k){
+      joker[2]=joker[2]+1;
+    }
+    if (joker[3]==k){
+      joker[3]=joker[3]+1;
+    }
     cards[k][1]=cards[k-1][1];
     cards[k][0]=cards[k-1][0];
-    }
+  }
   cards[posnew][1]=num;
   cards[posnew][0]=col;
 }
@@ -732,7 +750,7 @@ else
 int main(){
 char option1;
 string player1,player2;
-int password[3],joker1[4],joker2[4],newcardplayer1[3],newcardplayer2[3], turn=1;
+int password[3],joker1[4]={0,0,0,0},joker2[4]={0,0,0,0},newcardplayer1[3],newcardplayer2[3], turn=1;
 int numbercards=0,numbercards1=4,numbercards2=4,cards1[24][3],cards2[24][3];
 cout << "Please adjust the screen until you see only one line:" << endl;
 for (int i=0; i<190; i++){
@@ -787,6 +805,7 @@ while((didsomebodylose(cards1,numbercards1)||didsomebodylose(cards2,numbercards2
     cout << endl;
     newcardinfo(newcardplayer1,cards1,numbercards1);
     sorting(cards1,numbercards1,joker1);
+    cout << joker1[0] << joker1[1] << endl;
     cout << endl;
     cout << "here is your card: " << endl;
     showmycards(cards1,numbercards1);
@@ -805,6 +824,7 @@ while((didsomebodylose(cards1,numbercards1)||didsomebodylose(cards2,numbercards2
     cout << endl;
     newcardinfo(newcardplayer2,cards2,numbercards2);
     sorting(cards2,numbercards2,joker2);
+    cout << joker2[0] << joker2[1] << endl;
     cout << endl;
     cout << "here is your card: " << endl;
     showmycards(cards2,numbercards2);
