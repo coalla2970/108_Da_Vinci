@@ -706,6 +706,20 @@ srand(time(NULL));
 int numcard = numberofcards + 1;
 char option;
 card temp;
+bool deckhaswhite;
+bool deckhasblack;
+for (int i=0; i<24; i++){
+  if (deck[i].color == 'W'){
+    deckhaswhite = true;
+    break;
+  }
+}
+for (int i=0; i<24; i++){
+  if (deck[i].color == 'B'){
+    deckhasblack = true;
+    break;
+  }
+}
 while(numberofcards != numcard){
   srand(time(NULL));
   cout << "Which Color do you want to pick? (B/W): ";
@@ -715,39 +729,51 @@ while(numberofcards != numcard){
       temp.color = 'W';
       temp.number = rand()%13;
       temp.shown = 0;
-      if (cardindeck(deck,temp)>=0){
-        deck[cardindeck(deck,temp)].color = 'N';
-        deck[cardindeck(deck,temp)].number = 100;
-        deck[cardindeck(deck,temp)].shown = 100;
-        cards[numberofcards].color = temp.color;
-        cards[numberofcards].number = temp.number;
-        cards[numberofcards].shown = temp.shown;
-        numberofcards++;
-        cout << "choice made!"<< endl;
-        srand(time(NULL));
+      if (deckhaswhite){
+        if (cardindeck(deck,temp)>=0){
+          deck[cardindeck(deck,temp)].color = 'N';
+          deck[cardindeck(deck,temp)].number = 100;
+          deck[cardindeck(deck,temp)].shown = 100;
+          cards[numberofcards].color = temp.color;
+          cards[numberofcards].number = temp.number;
+          cards[numberofcards].shown = temp.shown;
+          numberofcards++;
+          cout << "choice made!"<< endl;
+          srand(time(NULL));
+          break;
+        }
+        else
+          continue;
+      }
+      else{
+        cout << "deck has no more white!" << endl;
         break;
       }
-      else
-        continue;
     }
     else if (option == 'B'){
       temp.color = 'B';
       temp.number = rand()%13;
       temp.shown = 0;
-      if (cardindeck(deck,temp)>=0){
-        deck[cardindeck(deck,temp)].color = 'N';
-        deck[cardindeck(deck,temp)].number = 100;
-        deck[cardindeck(deck,temp)].shown = 100;
-        cards[numberofcards].color = temp.color;
-        cards[numberofcards].number = temp.number;
-        cards[numberofcards].shown = temp.shown;
-        numberofcards++;
-        cout << "choice made!" << endl;
-        srand(time(NULL));
+      if (deckhasblack){
+        if (cardindeck(deck,temp)>=0){
+          deck[cardindeck(deck,temp)].color = 'N';
+          deck[cardindeck(deck,temp)].number = 100;
+          deck[cardindeck(deck,temp)].shown = 100;
+          cards[numberofcards].color = temp.color;
+          cards[numberofcards].number = temp.number;
+          cards[numberofcards].shown = temp.shown;
+          numberofcards++;
+          cout << "choice made!" << endl;
+          srand(time(NULL));
+          break;
+        }
+        else
+          continue;
+      }
+      else{
+        cout << "deck has no more black!" << endl;
         break;
       }
-      else
-        continue;
     }
     else {
       cout << "You have put invalid choice! Please put a choice again!" << endl;
@@ -779,7 +805,7 @@ while(true){
       break;
   }
   else if (opponentcard[position-1].shown == 1 && number == opponentcard[position-1].number){
-    cout << "This is already shown! please consider other choice."
+    cout << "This is already shown! please consider other choice.";
     cout << endl;
   }
   else {
