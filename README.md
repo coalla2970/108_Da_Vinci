@@ -16,25 +16,30 @@
 
 ### Generation of random game sets or events
 **Function prototype:** void deal(card deck[], card cards[], int &numberofcards)
-    - This will take a random selection of tiles in each draw (initialized by srand(time(NULL)) so that every game will be unique.
+
+This will take a random selection of tiles in each draw (initialized by srand(time(NULL)) so that every game will be unique.
 
 ### Data structures for storing game status
 **Struct prototype:** struct card { char color; int number; int shown; };
-    - This struct will contain information about each card to be used in the games (color, number, shown/not shown to the opponent). The tiles that players will have will be represented by arrays of this struct.
+
+This struct will contain information about each card to be used in the games (color, number, shown/not shown to the opponent). The tiles that players will have will be represented by arrays of this struct.
 
 ### Dynamic memory management
 **Dynamic array:** card * cards=new card [numberofcards];
-    - This will contain the information about cards in the player’s deck. After choosing a new card from the deck, the size of the array will increase and the information about new tile will be added.
+
+This will contain the information about cards in the player’s deck. After choosing a new card from the deck, the size of the array will increase and the information about new tile will be added.
 
 ### File input/output (e.g., for loading/saving game status)
-**Code prototype:** \# include <fstream> ofstream fout; fout.open(“playerinfo.txt”,ios::app); ifstream fin; fin.open(“playerinfo.txt”);
-    - After each turn, the program will ask players whether to save current information about the game or not. If yes, the information will be saved in an external file. Then, before executing the main function, the program will ask players whether to recall previous information about the game. If yes, the external files will be called and opened.
+**Code prototype:** \# include <fstream> ofstream fout;
+fout.open(“playerinfo.txt”,ios::app); ifstream fin; fin.open(“playerinfo.txt”);
+
+After each turn, the program will ask players whether to save current information about the game or not. If yes, the information will be saved in an external file. Then, before executing the main function, the program will ask players whether to recall previous information about the game. If yes, the external files will be called and opened.
 
 ### Program codes in multiple files
-    - The program will make functions and codes in separate program files using appropriate headings, and compile them into one in a specified rule using makefile.
+The program will make functions and codes in separate program files using appropriate headings, and compile them into one in a specified rule using makefile.
 
 ### Proper indentation and naming styles
-    - The program will assign names to the functions in accordance to their usage (i.e. function with name “deal” for enabling player to draw 1 card, function with name “sorting” to sort the card in ascending order)
+The program will assign names to the functions in accordance to their usage (i.e. function with name “deal” for enabling player to draw 1 card, function with name “sorting” to sort the card in ascending order)
 
 ### In-code documentation
-    - Before any functions in the program, the comments to explain the usage of it will be added.
+Before any functions in the program, the comments to explain the usage of it will be added.
