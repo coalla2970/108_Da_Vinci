@@ -17,7 +17,6 @@ struct card{
   int number;
   int shown;
 };
-//0 - white, 1 - Black
 void pass(){}
 void clrscrn(){
 cout << "\33[2J\33[1;1H" << flush;
@@ -903,7 +902,7 @@ while(true){
   showcardsback(opponentcard, opponentcards);
   cout << endl;
   cout << "which card do you want to pick?(leftmost - 1): ";
-  while (!(cin>>position)){
+  while (!(cin>>position) || opponentcard[position-1].shown == 1 || !(1<=position && position<=opponentcards)){
     cout << "Please input a vaild number.\nPosition?";
     cin.clear();
     while (cin.get() != '\n'){
@@ -911,7 +910,7 @@ while(true){
   }
   cout << "please guess the number of the chosen card (Joker: 12): ";
   while (!(cin>>number)){
-    cout << "Please input a vaild number.\nPosition?";
+    cout << "Please input a vaild number.";
     cin.clear();
     while (cin.get() != '\n'){
     }
@@ -925,10 +924,6 @@ while(true){
       continue;
     else
       break;
-  }
-  else if (opponentcard[position-1].shown == 1 && number == opponentcard[position-1].number){
-    cout << "This is already shown! please consider other choice.";
-    cout << endl;
   }
   else {
     cout << "oops, you have guessed it wrong!" << endl;
@@ -945,20 +940,30 @@ while(true){
 cout << "please confirm your moves by putting your password: " << endl;
 checkpassword(player,password);
 }
-bool didsomebodylose(card playercard[], int numberofcards){
-int decision = 0;
-for (int i=0; i<numberofcards; i++){
-  if (playercard[i].shown == 0){
-    decision = 1;
-    break;
+bool didplayerlose(card playercard[], int numberofcards){
+  bool decision = true;
+  for (int i=0; i<numberofcards; i++){
+    if (playercard[i].shown == 0){
+      decision = false;
+      break;
+    }
+    else
+      continue;
   }
-  else
-    continue;
+  return decision;
 }
-if (decision == 0)
-  return false;
-else
-  return true;
+bool emptydeck(card deck[]){
+  bool check = true;
+  for (int i=0; i<24; i++){
+    if (deck[i].color == 'N'){
+      continue;
+    }
+    else{
+      check = false;
+      break;
+    }
+  }
+  return check;
 }
 void recall_data(card cards1[], card cards2[], card deck[],int &numbercards1, int &numbercards2,
 int &password1, int &password2, string &player1, string &player2, int joker1[], int joker2[], int &turn, char &recall){
@@ -1084,7 +1089,7 @@ int &password1, int &password2, string &player1, string &player2, int joker1[], 
         }
         else if (linecount==6){
           while (player2data >> tempno){
-            cards1[idx].shown = stoi(tempno,nullptr,10);
+            cards2[idx].shown = stoi(tempno,nullptr,10);
             idx++;
           }
           idx=0;
@@ -1266,6 +1271,18 @@ int password1, int password2, string player1, string player2, int joker1[], int 
     }
   }
 }
+int countshown(card cards[], int numberofcards){
+  int count = 0;
+  for (int i=0; i<numberofcards; i++){
+    if (cards[i].shown == 1){
+      count++;
+    }
+    else{
+      continue;
+    }
+  }
+  return count;
+}
 int main(){
 char recall;
 char option1;
@@ -1366,7 +1383,7 @@ else{
   cout << password[1]<<endl;
   cout << password[2]<<endl;
 }
-while((didsomebodylose(cards1,numbercards1)||didsomebodylose(cards2,numbercards2))){
+while(!(didplayerlose(cards1,numbercards1)||didplayerlose(cards2,numbercards2)) && !(emptydeck(deck))){
   if (turn == 1){
     cout << player1 << ", it's your turn!" << endl;
     checkpassword(player1,password[1]);
@@ -1453,4 +1470,21 @@ while((didsomebodylose(cards1,numbercards1)||didsomebodylose(cards2,numbercards2
   }
 }
 cout << "game ended!" << endl;
+if (didplayerlose(cards1,numbercards1)){
+  cout << player2 << " won!" << endl;
+}
+else if(didplayerlose(cards2,numbercards2)){
+  cout << player1 << " won!" << endl;
+}
+else if (countshown(cards1,numbercards1) > countshown(cards2,numbercards2)){
+  cout << "since there are no more cards in the deck, a player with less shown cards will be winner." << endl;
+  cout << player2 << " won!" << endl;
+}
+else if (countshown(cards1,numbercards1) < countshown(cards2,numbercards2)){
+  cout << "since there are no more cards in the deck, a player with less shown cards will be winner." << endl;
+  cout << player1 << " won!" << endl;
+}
+else{
+  cout << "draw!" << endl;
+}
 }
