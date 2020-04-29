@@ -3,7 +3,8 @@
 #include "naturalsort.h"
 #include "card.h"
 using namespace std;
-
+//natural sort function sorts the deck when it can be naturally sorted without user's input.
+//and outputs the new position of the new tile.
 void naturalsort(card deck[], int first, int last, int &posnew, int numberofcards){
   int num;
   char col;

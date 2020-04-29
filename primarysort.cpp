@@ -3,9 +3,10 @@
 #include "primarysort.h"
 #include "card.h"
 using namespace std;
-
+//primarysort function sorts the deck of 4 tiles that are drawn at first.
 void primarysort(card deck[], int numberofcards){
   int bigger,switchcolor;
+  //Joker will be replaced at last
   for (int i=0; i<numberofcards; i++){
     for (int j=i+1; j<numberofcards; j++){
       if (deck[i].number > deck[j].number){

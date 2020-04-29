@@ -11,15 +11,15 @@
 #include "welcomemsg.h"
 #include "card.h"
 using namespace std;
-
+//welcomemsg function asks player's name and password and confirm them
 void welcomemsg(string &player1, string &player2, int password[]){
-  int password1,password2;
   string playername;
   cout << "< The Da Vinci Code Game >\nWELCOME!" << endl;
   for (int i=1; i<=2; i++){
     int pass=0, confirmpass=1;
     cout << "Player " << i << ", What is your name?" << endl;
-    cin>>playername;
+    cin.ignore();
+    getline(cin,playername);
     if(i==1){
       player1=playername;
     }
@@ -43,12 +43,6 @@ void welcomemsg(string &player1, string &player2, int password[]){
           while (cin.get() != '\n'){
           }
         }
-      }
-      if (i==1){
-        password1=pass;
-      }
-      else{
-        password2=pass;
       }
       clrscrn();
       cout << "To confirm, please put your password again!" << endl;

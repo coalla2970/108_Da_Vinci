@@ -4,7 +4,7 @@
 #include "showmycards.h"
 #include "card.h"
 using namespace std;
-
+//subsort function replaces the joker
 void subsort(int last, int &newpos, card deck[], int n, int num, char col, int sho, int joker[]){
   showmycards(deck,last+1);
   if (n==0){

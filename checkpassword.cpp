@@ -3,7 +3,7 @@
 #include "checkpassword.h"
 #include "card.h"
 using namespace std;
-
+//checkpassword function checks whether user's input is same as his/her password.
 void checkpassword(string player,int password){
   int inpass;
   cout << "Enter "<< player << "'s password:";
