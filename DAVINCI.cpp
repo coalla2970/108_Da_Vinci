@@ -229,23 +229,26 @@ int main(){
       clrscrn();
     }
   }
+  clrscrn();
   //End of game and winner is announced.
   cout << "Game Ended!" << endl;
   if (didplayerlose(cards1,numbercards1)){
     cout << player2 << " Won!" << endl;
+    cout << player2 << ", CONGRATULATIONS :)" << endl;
   }
   else if(didplayerlose(cards2,numbercards2)){
     cout << player1 << " Won!" << endl;
+    cout << player1 << ", CONGRATULATIONS :)" << endl;
   }
   else if (countshown(cards1,numbercards1) > countshown(cards2,numbercards2)){
     cout << "Since there are no more tiles in the deck, a player with less shown tiles will be the winner." << endl;
     cout << player2 << " Won!" << endl;
-    cout << player2 << " CONGRATULATIONS :)" << endl;
+    cout << player2 << ", CONGRATULATIONS :)" << endl;
   }
   else if (countshown(cards1,numbercards1) < countshown(cards2,numbercards2)){
     cout << "Since there are no more tiles in the deck, a player with less shown tiles will be the winner." << endl;
     cout << player1 << " Won!" << endl;
-    cout << player1 << " CONGRATULATIONS :)" << endl;
+    cout << player1 << ", CONGRATULATIONS :)" << endl;
   }
   // If all the tiles are drawn and the number of shown cards are equal,
   else{

@@ -31,7 +31,6 @@ void sorting(card deck[], int numberofcards, int joker[]){
   sho= deck[last].shown;
   //When the new card is a joker.
   if (num==12){
-    cout<<"Cp0"<<endl;
     //If the new card is a white joker and black joker does not exist in the player's deck
     if (col=='W' && joker[1]==0){
       n=0;
@@ -48,7 +47,7 @@ void sorting(card deck[], int numberofcards, int joker[]){
         joker[1]=1;
         joker[3]=newpos-1;;
       }
-      //If they are primary drawn tiles and a white joker and a black joker tiles both exist 
+      //If they are primary drawn tiles and a white joker and a black joker tiles both exist
       else if (deck[last-1].number == 12 && deck[last-1].color == 'W'){
         int whitejnum=12, whitejcol = 'W';
         n=0;
