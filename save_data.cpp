@@ -11,12 +11,13 @@
 #include "save_data.h"
 #include "card.h"
 using namespace std;
-
+//save_data function saves the data of current players' information that is needed for the resumed game.
 void save_data(card cards1[], card cards2[], card deck[], int numbercards1, int numbercards2,
 int password1, int password2, string player1, string player2, int joker1[], int joker2[], int turn, char &save){
   while(true){
     if (save=='Y'){
       ofstream fout;
+      //saving player1's information
       fout.open("player1previnfo.txt");
       if (fout.fail()){
         cout<< "Error in opening file!" <<endl;
@@ -42,6 +43,7 @@ int password1, int password2, string player1, string player2, int joker1[], int 
         fout << endl;
       }
       fout.close();
+      //saving player2's information
       fout.open("player2previnfo.txt");
       if (fout.fail()){
         cout<< "Error in opening file!" <<endl;
@@ -67,6 +69,7 @@ int password1, int password2, string player1, string player2, int joker1[], int 
         fout << endl;
       }
       fout.close();
+      //saving cards deck's information
       fout.open("deckandturnprevinfo.txt");
       if (fout.fail()){
         cout<< "Error in opening file!" <<endl;
@@ -101,7 +104,7 @@ int password1, int password2, string player1, string player2, int joker1[], int 
       break;
     }
     else{
-      cout << "Please put valid input"<<endl;
+      cout << "Please put a valid input"<<endl;
       cout << "Do you want to save this game and end this game? (Y/N):";
       cin >> save;
       continue;
