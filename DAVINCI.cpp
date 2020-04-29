@@ -32,7 +32,7 @@ using namespace std;
 
 #define WHITE "\xE2\x98\x90"
 #define BLACK "\xE2\x96\xA0"
-
+//main function plays the game.
 int main(){
   string recall;
   string save;
@@ -51,6 +51,7 @@ int main(){
   card *cards1=new card[24];
   card *cards2=new card[24];
   card *deck=new card[24];
+  //Adjustment of screen for playing.
   cout << "Please adjust the screen until you see only one line:" << endl;
   for (int i=0; i<190; i++){
     cout << "-";
@@ -61,6 +62,7 @@ int main(){
   if (option1 == 'Y'){
     clrscrn();
   }
+  //Initializing the deck of cards
   for (int i=0; i<12; i++){
     deck[i].color = 'W';
   }
@@ -76,21 +78,22 @@ int main(){
   for (int i=0; i<24; i++){
     deck[i].shown = 0;
   }
+  //opening saved files
   ifstream fin;
   fin.open("player1previnfo.txt");
+  //if file does not exist,
   if(fin.fail()){
     cout<<"Starting new game!" <<endl;
     welcomemsg(player1,player2,password);
-    cout << "testing...(printing all possible cards)" << endl;
-    cout << "You are going to pick first 4 cards." << endl;
+    cout << "You are going to pick first 4 tiles." << endl;
     primarydeal(deck,cards1,cards2,player1,player2,numbercards);
-    cout << player1 << "'s initial cards" << endl;
+    cout << player1 << "'s initial tiles" << endl;
     checkpassword(player1,password[1]);
     primarysort(cards1,numbercards1);
     sorting(cards1,numbercards1,joker1);
     showmycards(cards1,numbercards1);
     clrscrn();
-    cout << player2 << "'s initial cards" << endl;
+    cout << player2 << "'s initial tiles" << endl;
     checkpassword(player2,password[2]);
     primarysort(cards2,numbercards2);
     sorting(cards2,numbercards2,joker2);
@@ -105,18 +108,19 @@ int main(){
         recall_data(cards1,cards2,deck,numbercards1,numbercards2,password[1],password[2],player1,player2,joker1,joker2,turn,recall);
         break;
       }
+      //if user wants to start a new game,
       else if(recall=="N"){
+        cout << "Starting new game!" << endl;
         welcomemsg(player1,player2,password);
-        cout << "testing...(printing all possible cards)" << endl;
-        cout << "You are going to pick first 4 cards." << endl;
+        cout << "You are going to pick first 4 tiles." << endl;
         primarydeal(deck,cards1,cards2,player1,player2,numbercards);
-        cout << player1 << "'s initial cards" << endl;
+        cout << player1 << "'s initial tiles" << endl;
         checkpassword(player1,password[1]);
         primarysort(cards1,numbercards1);
         sorting(cards1,numbercards1,joker1);
         showmycards(cards1,numbercards1);
         clrscrn();
-        cout << player2 << "'s initial cards" << endl;
+        cout << player2 << "'s initial tiles" << endl;
         checkpassword(player2,password[2]);
         primarysort(cards2,numbercards2);
         sorting(cards2,numbercards2,joker2);
@@ -125,34 +129,23 @@ int main(){
         break;
       }
       else{
-        cout << "Please put a valid input.(Y/N)";
+        cout << "Please put a valid input.\nDo you want to recall the previous game that you saved?(Y/N)";
         cin >>recall;
       }
     }
-    cout<< cards1[0].color << endl;
-    cout<<cards1[1].color<<endl;
-    cout << cards2[0].color<<endl;
-    cout<< cards2[1].color<<endl;
-    cout <<player1 <<endl;
-    cout<<player2<<endl;
-    cout << joker1[0] <<endl;
-    cout<< joker1[1]<<endl;
-    cout << joker2[0]<<endl;
-    cout << joker2[1]<<endl;
-    cout << password[1]<<endl;
-    cout << password[2]<<endl;
   }
+  //Start dealing
   while(!(didplayerlose(cards1,numbercards1)||didplayerlose(cards2,numbercards2)) && !(emptydeck(deck))){
     if (turn == 1){
       cout << player1 << ", it's your turn!" << endl;
       checkpassword(player1,password[1]);
-      cout << "The remaining cards are:" << endl;
+      cout << "The remaining tiles are:" << endl;
       showcardsback(deck,24);
-      cout << "Please draw one more card!" << endl;
+      cout << "Please draw one more tile!" << endl;
       deal(deck,cards1,numbercards1);
       newcardinfo(newcardplayer1,cards1,numbercards1);
       cout << endl;
-      cout << "your new card is: " << endl;
+      cout << "Your new tile is: " << endl;
       if (newcardplayer1.color == 'W'){
         cout << "Color: White" << endl;
       }
@@ -169,14 +162,13 @@ int main(){
         cout << "Joker" << endl;
       }
       sorting(cards1,numbercards1,joker1);
-      cout << joker1[0] << joker1[1] << endl;
-      cout << endl;
-      cout << "here is your card: " << endl;
+      cout << "Here is your tile: " << endl;
       showmycards(cards1,numbercards1);
       cout << endl;
       guessing(cards2,cards1,newcardplayer1,numbercards1,numbercards2,player1,password[1]);
       if (!(didplayerlose(cards1,numbercards1)||didplayerlose(cards2,numbercards2)) && !(emptydeck(deck))){
         turn = 2;
+        //Saving data to the external file.
         char save;
         cout << "Do you want to save this game and end this game? (Y/N)";
         cin >> save;
@@ -193,13 +185,13 @@ int main(){
     else{
       cout << player2 << ", it's your turn!" << endl;
       checkpassword(player2,password[2]);
-      cout << "The remaining cards are:" << endl;
+      cout << "The remaining tiles are:" << endl;
       showcardsback(deck,24);
-      cout << "Please draw one more card!" << endl;
+      cout << "Please draw one more tile!" << endl;
       deal(deck,cards2,numbercards2);
       newcardinfo(newcardplayer2,cards2,numbercards2);
       cout << endl;
-      cout << "your new card is: " << endl;
+      cout << "your new tile is: " << endl;
       if (newcardplayer2.color == 'W'){
         cout << "Color: White" << endl;
       }
@@ -216,15 +208,14 @@ int main(){
         cout << "Joker" << endl;
       }
       sorting(cards2,numbercards2,joker2);
-      cout << joker2[0] << joker2[1] << endl;
-      cout << endl;
-      cout << "here is your card: " << endl;
+      cout << "Here is your tile: " << endl;
       showmycards(cards2,numbercards2);
       cout << endl;
       guessing(cards1,cards2,newcardplayer2,numbercards2,numbercards1,player2,password[2]);
       if (!(didplayerlose(cards1,numbercards1)||didplayerlose(cards2,numbercards2)) && !(emptydeck(deck))){
         turn = 1;
         char save;
+        //Saving data to the external file.
         cout << "Do you want to save this game and end this game? (Y/N)";
         cin >> save;
         save_data(cards1, cards2, deck, numbercards1, numbercards2, password[1], password[2], player1, player2, joker1, joker2, turn, save);
@@ -238,22 +229,26 @@ int main(){
       clrscrn();
     }
   }
-  cout << "game ended!" << endl;
+  //End of game and winner is announced.
+  cout << "Game Ended!" << endl;
   if (didplayerlose(cards1,numbercards1)){
-    cout << player2 << " won!" << endl;
+    cout << player2 << " Won!" << endl;
   }
   else if(didplayerlose(cards2,numbercards2)){
-    cout << player1 << " won!" << endl;
+    cout << player1 << " Won!" << endl;
   }
   else if (countshown(cards1,numbercards1) > countshown(cards2,numbercards2)){
-    cout << "since there are no more cards in the deck, a player with less shown cards will be winner." << endl;
-    cout << player2 << " won!" << endl;
+    cout << "Since there are no more tiles in the deck, a player with less shown tiles will be the winner." << endl;
+    cout << player2 << " Won!" << endl;
+    cout << player2 << " CONGRATULATIONS :)" << endl;
   }
   else if (countshown(cards1,numbercards1) < countshown(cards2,numbercards2)){
-    cout << "since there are no more cards in the deck, a player with less shown cards will be winner." << endl;
-    cout << player1 << " won!" << endl;
+    cout << "Since there are no more tiles in the deck, a player with less shown tiles will be the winner." << endl;
+    cout << player1 << " Won!" << endl;
+    cout << player1 << " CONGRATULATIONS :)" << endl;
   }
+  // If all the tiles are drawn and the number of shown cards are equal,
   else{
-    cout << "draw!" << endl;
+    cout << "Draw!" << endl;
   }
 }
