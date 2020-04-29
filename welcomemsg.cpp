@@ -11,7 +11,7 @@
 #include "welcomemsg.h"
 #include "card.h"
 using namespace std;
-
+//welcomemsg function asks player's name and password and confirm them
 void welcomemsg(string &player1, string &player2, int password[]){
   string playername;
   cout << "< The Da Vinci Code Game >\nWELCOME!" << endl;
