@@ -86,6 +86,7 @@ int main(){
     cout<<"Starting new game!" <<endl;
     welcomemsg(player1,player2,password);
     cout << "You are going to pick first 4 tiles." << endl;
+    //primary deal which involves 4 initial tiles for each player
     primarydeal(deck,cards1,cards2,player1,player2,numbercards);
     cout << player1 << "'s initial tiles" << endl;
     checkpassword(player1,password[1]);
@@ -146,6 +147,7 @@ int main(){
       newcardinfo(newcardplayer1,cards1,numbercards1);
       cout << endl;
       cout << "Your new tile is: " << endl;
+      //shows the information of the new card
       if (newcardplayer1.color == 'W'){
         cout << "Color: White" << endl;
       }
@@ -165,6 +167,7 @@ int main(){
       cout << "Here is your tile: " << endl;
       showmycards(cards1,numbercards1);
       cout << endl;
+      //guessing the card
       guessing(cards2,cards1,newcardplayer1,numbercards1,numbercards2,player1,password[1]);
       if (!(didplayerlose(cards1,numbercards1)||didplayerlose(cards2,numbercards2)) && !(emptydeck(deck))){
         turn = 2;
@@ -236,6 +239,7 @@ int main(){
     cout << player2 << " Won!" << endl;
     cout << player2 << ", CONGRATULATIONS :)" << endl;
   }
+  //if the deck runs out of tiles before a player reveals all of his/her opponent's tile
   else if(didplayerlose(cards2,numbercards2)){
     cout << player1 << " Won!" << endl;
     cout << player1 << ", CONGRATULATIONS :)" << endl;
