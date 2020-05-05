@@ -4,8 +4,6 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <iomanip>
 #include "sorting.h"
 #include "subsort.h"
