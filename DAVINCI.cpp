@@ -175,8 +175,8 @@ int main(){
         char save;
         cout << "Do you want to save this game and end this game? (Y/N)";
         cin >> save;
+        save_data(cards1, cards2, deck, numbercards1, numbercards2, password[1], password[2], player1, player2, joker1, joker2, turn, save);
         if(save=='Y'){
-          save_data(cards1, cards2, deck, numbercards1, numbercards2, password[1], password[2], player1, player2, joker1, joker2, turn, save);
           exit(1);
         }
       }
@@ -221,8 +221,8 @@ int main(){
         //Saving data to the external file.
         cout << "Do you want to save this game and end this game? (Y/N)";
         cin >> save;
+        save_data(cards1, cards2, deck, numbercards1, numbercards2, password[1], password[2], player1, player2, joker1, joker2, turn, save);
         if(save=='Y'){
-          save_data(cards1, cards2, deck, numbercards1, numbercards2, password[1], password[2], player1, player2, joker1, joker2, turn, save);
           exit(1);
         }
       }
