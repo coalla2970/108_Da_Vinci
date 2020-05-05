@@ -30,6 +30,7 @@ from adapting aforementioned rules of the game, detailed description of how to p
 
 
 ***Adapted from**: Da Vinci code - published in 2004, designed by Eiji Wakasugi*
+![Game image](Boardgame.png)
 
 ## Features and Functions
 ***Note: We did not include any non-standard library in C++ to implement this program***
@@ -72,6 +73,11 @@ To clear the memories that are used, “ delete []card1, delete []card2, delete 
   - The developers have added the description for each .cpp file of the game program so that the readers will know what each function does for the whole program. By reading the in-code documentation, the readers will also find where the code requirements are in the parts of the program.
 
 ## Brief Manual & Gameplay
+![1-2](1-2.png)
+![3-4](3-4.png)
+![5](5.png)
+![6](6.png)
+![7-8](7-8.png)
 
 ## Compilation and execution instructions
 1. Download the game files and make sure that the current directory is the same as the game folder.
