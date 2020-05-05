@@ -18,8 +18,8 @@ Each color tiles show 1 to 11 and one joker(**) tile.
 1. Player 1 takes a tile from the remaining deck and rearranges the tiles (this will be done automatically by the program, unless the player draws joker)
 2. If either black or white joker is drawn, player(s) will be asked to position the joker wherever they want.
 3. Player 1 guesses a tile of player 2 by typing the position and guessed number of the opponent's tile. There will be 2 cases afterwards:
- * If player 1 guesses wrongly, player 1 should open the tile that he/she took in the current turn, and hand the turn to the other player. 
- * If player 1 guesses correctly, player 2 opens the guessed tile and player 1 chooses whether he/she will continue to guess or not. If not, the turn goes to player 2. If yes, player 1 keeps guessing (if he/she guesses wrong, he/she should open his/her tile that is chosen in the current turn still).
+  - If player 1 guesses wrongly, player 1 should open the tile that he/she took in the current turn, and hand the turn to the other player. 
+  - If player 1 guesses correctly, player 2 opens the guessed tile and player 1 chooses whether he/she will continue to guess or not. If not, the turn goes to player 2. If yes, player 1 keeps guessing (if he/she guesses wrong, he/she should open his/her tile that is chosen in the current turn still).
 4. Player 1 decides whether he/she will save and end the game or not. If yes, the information about the current game will be written into three separate files, and the game will terminate. If no, the game will not be saved and the turn goes to the Player 2.
 5. After the Player 1's turn, Player 2 does the same (from steps 1-4), and passes the turn again to Player 1.
 
@@ -29,9 +29,9 @@ the game.
 2. If deck runs out of cards: the player who has more tiles revealedto the opponent loses.
 
 
-Since we have included additional features (saving game information, password, …) in this particular program aside 
+*Since we have included additional features (saving game information, password, …) in this particular program aside 
 from adapting aforementioned rules of the game, detailed description of how to play the gram will be provided in the 
-“Gameplay” section.
+“Gameplay” section.*
 
 
 ***Adapted from**: Da Vinci code - published in 2004, designed by Eiji Wakasugi*
