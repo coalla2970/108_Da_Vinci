@@ -50,6 +50,11 @@ int main(){
   card *cards2=new card[24];
   card *deck=new card[24];
   //Adjustment of screen for playing.
+  cout << endl;
+  cout << "........................................................................" << endl;
+  cout << "NOTE: The screen resolution must be at least 1440x900 to play this game." << endl;
+  cout << "........................................................................" << endl;
+  cout << endl;
   cout << "Please adjust the screen until you see only one line:" << endl;
   for (int i=0; i<190; i++){
     cout << "-";
